@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import ApiService from './../Services/ApiService'
 export default class AdoptionPage extends Component {
 
@@ -11,17 +10,51 @@ export default class AdoptionPage extends Component {
     }
 
     componentDidMount() {
-        ApiService.getPets()
-            .then(pets => {
-                this.setState({
-                    cats: pets.cats,
-                    dogs: pets.dogs
-                })
+        ApiService.getCats()
+            .then(cats => {
+                this.setState({ cats })
+            })
+        ApiService.getDogs()
+            .then(dogs => {
+                this.setState({ dogs })
             })
         ApiService.getPeople()
             .then(people => {
                 this.setState({ people })
                 this.setState({ loading: false })
+            })
+    }
+
+    adoptCat = (e) => {
+        e.preventDefault()
+        ApiService.adoptCat()
+        ApiService.getCats()
+            .then(cats => {
+                this.setState({ cats })
+            })
+        ApiService.getPeople()
+            .then(people => {
+                this.setState({ people })
+            })
+    }
+
+    adoptDog = (e) => {
+        e.preventDefault()
+        ApiService.adoptDog()
+        ApiService.getDogs()
+            .then(dogs => {
+                if (this.state.dogs === null) {
+                    return (
+                        <p>Out of Dogs, try again later</p>
+                    )
+                } else {
+                    this.setState({ dogs })
+                }
+            })
+        ApiService.getPeople()
+            .then(people => {
+
+                this.setState({ people })
             })
     }
 
@@ -38,18 +71,18 @@ export default class AdoptionPage extends Component {
                             <h2>Cat</h2>
                             <img src={cats.imageURL}></img>
                             <p>Name: {cats.name}</p>
-                            <button>ADOPT</button>
+                            <button onClick={this.adoptCat}>ADOPT</button>
                         </div>
                         <div className='dog'>
                             <h2>Dog</h2>
                             <img src={dogs.imageURL}></img>
                             <p>Name: {dogs.name}</p>
-                            <button>ADOPT</button>
+                            <button onClick={this.adoptDog}>ADOPT</button>
                         </div>
                         <div className='People'>
                             <h2>Queue</h2>
                             {people.map(person =>
-                            <p key={person}>{person}</p>
+                                <p key={person}>{person}</p>
                             )}
                         </div>
                     </section>}

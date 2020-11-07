@@ -1,8 +1,16 @@
 import config from './../config'
 
 const Apiservice = {
-    getPets() {
-        return fetch(`${config.API_ENDPOINT}/pets`)
+    getCats() {
+        return fetch(`${config.API_ENDPOINT}/cats`)
+            .then(res =>
+                (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            )
+    },
+    getDogs() {
+        return fetch(`${config.API_ENDPOINT}/dogs`)
             .then(res =>
                 (!res.ok)
                     ? res.json().then(e => Promise.reject(e))
@@ -16,17 +24,15 @@ const Apiservice = {
                     ? res.json().then(e => Promise.reject(e))
                     : res.json())
     },
-    adoptPet(type) {
-        return fetch(`${config.API_ENDPOINT}/pets`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                type: type
-            })
+    adoptCat() {
+        return fetch(`${config.API_ENDPOINT}/cats`, {
+            method: 'DELETE'
         })
-        .then(res => res)
+    },
+    adoptDog() {
+        return fetch(`${config.API_ENDPOINT}/dogs`, {
+            method: 'DELETE'
+        })
     }
 
 }
