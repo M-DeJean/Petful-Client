@@ -6,7 +6,6 @@ export default class AdoptionPage extends Component {
         cats: null,
         dogs: null,
         people: null,
-        loading: true
     }
 
     componentDidMount() {
@@ -21,25 +20,23 @@ export default class AdoptionPage extends Component {
         ApiService.getPeople()
             .then(people => {
                 this.setState({ people })
-                this.setState({ loading: false })
             })
+
     }
 
-    adoptCat = (e) => {
-        e.preventDefault()
+    adoptCat = () => {
         ApiService.adoptCat()
         ApiService.getCats()
             .then(cats => {
                 this.setState({ cats })
             })
-        ApiService.getPeople()
+        ApiService.updatePeople()
             .then(people => {
                 this.setState({ people })
             })
     }
 
-    adoptDog = (e) => {
-        e.preventDefault()
+    adoptDog = () => {
         ApiService.adoptDog()
         ApiService.getDogs()
             .then(dogs => {
@@ -51,7 +48,7 @@ export default class AdoptionPage extends Component {
                     this.setState({ dogs })
                 }
             })
-        ApiService.getPeople()
+        ApiService.updatePeople()
             .then(people => {
 
                 this.setState({ people })
@@ -60,11 +57,11 @@ export default class AdoptionPage extends Component {
 
 
     render() {
-        const { cats, dogs, people, loading } = this.state
+        const { cats, dogs, people } = this.state
 
         return (
             <>
-                { loading ? <p>...LOADING PETS...</p> :
+                { cats == null || dogs == null || people == null ? <p>...Rescuing Pets...</p> :
                     <section className='AdoptionPage'>
                         <h1>Adopt a Pet!</h1>
                         <div className='cat'>
@@ -81,9 +78,9 @@ export default class AdoptionPage extends Component {
                         </div>
                         <div className='People'>
                             <h2>Queue</h2>
-                            {people.map(person =>
-                                <p key={person}>{person}</p>
-                            )}
+                            <p>{people[0]}</p>
+                            <p>{people[1]}</p>
+                            <p>{people[2]}</p>
                         </div>
                     </section>}
             </>

@@ -24,6 +24,16 @@ const Apiservice = {
                     ? res.json().then(e => Promise.reject(e))
                     : res.json())
     },
+    updatePeople() {
+        return fetch(`${config.API_ENDPOINT}/people`, {
+            method: 'PATCH'
+        })
+            .then(res =>
+                (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            )
+    },
     adoptCat() {
         return fetch(`${config.API_ENDPOINT}/cats`, {
             method: 'DELETE'
