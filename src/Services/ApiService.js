@@ -24,6 +24,15 @@ const Apiservice = {
                     ? res.json().then(e => Promise.reject(e))
                     : res.json())
     },
+    addPeople(name) {
+        console.log(JSON.stringify({name}))
+
+        return fetch(`${config.API_ENDPOINT}/people`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({name})
+        })
+    },
     updatePeople() {
         return fetch(`${config.API_ENDPOINT}/people`, {
             method: 'PATCH'

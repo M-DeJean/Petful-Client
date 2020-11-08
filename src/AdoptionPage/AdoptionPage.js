@@ -15,6 +15,7 @@ export default class AdoptionPage extends Component {
             next: {}
         },
         people: [],
+        value: ""
     }
 
     componentDidMount() {
@@ -58,36 +59,55 @@ export default class AdoptionPage extends Component {
             })
     }
 
+    getInLine = (e) => {
+        this.setState({ value: e.target.value})
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        ApiService.addPeople(this.state.value)
+        ApiService.getPeople()
+        alert(`${this.state.value} was added to the back of the line!`)
+
+        e.preventDefault()
+    }
+
+
 
     render() {
         const { cats, dogs, people } = this.state
-        console.log(dogs)
         return (
             <>
-                { people == null ? <p>...Rescuing Pets...</p> :
-                    <section className='AdoptionPage'>
-                        <h1>Adopt a Pet!</h1>
-                        {!cats.next ? <p>Rescuing Cats...</p> : <div className='cat'>
-                            <Cats
-                                cats={cats}
-                                adopt={this.adoptCat}
+                <section className='AdoptionPage'>
+                    <h1>Adopt a Pet!</h1>
+                    {!cats.next ? <p>Rescuing Cats...</p> : <div className='cat'>
+                        <Cats
+                            cats={cats}
+                            adopt={this.adoptCat}
+                        />
+                    </div>}
+                    {!dogs.next ? <p>Rescuing Dogs...</p> :
+                        <div className='dog'>
+                            <Dogs
+                                dogs={dogs}
+                                adopt={this.adoptDog}
                             />
                         </div>}
-                        {!dogs.next ? <p>Rescuing Dogs...</p> :
-                            <div className='dog'>
-                                <Dogs
-                                    dogs={dogs}
-                                    adopt={this.adoptDog}
-                                />
-                            </div>}
 
-                        <div className='People'>
-                            <h2>Queue</h2>
-                            <p>{people[0]}</p>
-                            <p>{people[1]}</p>
-                            <p>{people[2]}</p>
-                        </div>
-                    </section>}
+                    <div className='People'>
+                        {people.slice(0, 5).map((person, index) =>
+                            <People
+                                key={index}
+                                number={index}
+                                person={person}
+                            />)}
+                    <form onSubmit={this.handleSubmit}>
+                        <label htmlFor="name">Enter Name:</label><br/>
+                        <input type="text" placeholder="Your name" name="name" id="name" value={this.state.you}onChange={this.getInLine}></input>
+                        <input type="submit" value="Submit"></input>
+                    </form>
+                    </div>
+                </section>
             </>
         )
     }
