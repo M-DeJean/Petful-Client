@@ -5,7 +5,7 @@ export default class People extends Component {
         const { person, number} = this.props
         return (
             <>
-                <h2>Position: {number + 1}</h2>
+                <h2>Next up: {number + 1}</h2>
                 {person}
             </>
         )

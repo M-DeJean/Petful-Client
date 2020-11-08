@@ -25,12 +25,10 @@ const Apiservice = {
                     : res.json())
     },
     addPeople(name) {
-        console.log(JSON.stringify({name}))
-
         return fetch(`${config.API_ENDPOINT}/people`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({name})
+            body: JSON.stringify({ name })
         })
     },
     updatePeople() {

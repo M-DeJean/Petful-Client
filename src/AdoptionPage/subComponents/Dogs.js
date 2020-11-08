@@ -3,13 +3,13 @@ import React, { Component } from 'react'
 export default class Dogs extends Component {
     render() {
 
-        const {dogs, adopt} = this.props
+        const {dogs, adopt, value, front} = this.props
         return (
             <>
                 <h2>Dog</h2>
                 <img src={dogs.value.imageURL}></img>
                 <p>Name: {dogs.value.name}</p>
-                <button onClick={adopt}>ADOPT</button>
+                <button disabled={value !== front}onClick={adopt}>ADOPT</button>
             </>
         )
     }

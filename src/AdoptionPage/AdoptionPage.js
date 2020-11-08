@@ -15,7 +15,9 @@ export default class AdoptionPage extends Component {
             next: {}
         },
         people: [],
-        value: ""
+        value: "",
+        front: "",
+        submitted: false
     }
 
     componentDidMount() {
@@ -23,59 +25,76 @@ export default class AdoptionPage extends Component {
             .then(cats => {
                 this.setState({ cats })
             })
+
         ApiService.getDogs()
             .then(dogs => {
                 this.setState({ dogs })
             })
+
         ApiService.getPeople()
             .then(people => {
-                this.setState({ people })
+                this.setState({ people: people, front: people[0] })
             })
+
+        this.interval = setInterval(() => {
+            console.log(this.state.value)
+            if (this.state.front !== this.state.value)
+                this.next();
+        }, 3000);
 
     }
 
-    adoptCat = (e) => {
+    next() {
+        let functions = [this.adoptCat, this.adoptDog]
+        function adoptRandom(n) {
+            return Math.floor(Math.random() * n);
+        }
+        functions[adoptRandom(functions.length)]()
+    }
+
+    adoptCat = () => {
         ApiService.adoptCat()
+        ApiService.getPeople()
+            .then(people => {
+                this.setState({ people: people, front: people[0] })
+            })
         ApiService.getCats()
             .then(cats => {
                 this.setState({ cats })
-            })
-        ApiService.updatePeople()
-            .then(people => {
-                this.setState({ people })
             })
     }
 
     adoptDog = () => {
         ApiService.adoptDog()
+        ApiService.getPeople()
+            .then(people => {
+
+                this.setState({ people: people, front: people[0] })
+            })
         ApiService.getDogs()
             .then(dogs => {
                 this.setState({ dogs })
             })
-        ApiService.updatePeople()
-            .then(people => {
-
-                this.setState({ people })
-            })
     }
 
     getInLine = (e) => {
-        this.setState({ value: e.target.value})
+        e.preventDefault()
+        this.setState({ value: e.target.value })
+        
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
         ApiService.addPeople(this.state.value)
         ApiService.getPeople()
+        this.setState({submitted: true})
         alert(`${this.state.value} was added to the back of the line!`)
-
-        e.preventDefault()
     }
 
 
 
     render() {
-        const { cats, dogs, people } = this.state
+        const { cats, dogs, people, value, front } = this.state
         return (
             <>
                 <section className='AdoptionPage'>
@@ -91,21 +110,26 @@ export default class AdoptionPage extends Component {
                             <Dogs
                                 dogs={dogs}
                                 adopt={this.adoptDog}
+                                value={value}
+                                front={front}
                             />
                         </div>}
+                    <div className="front">
+                        <p>First in line: {front}</p>
+                    </div>
 
                     <div className='People'>
-                        {people.slice(0, 5).map((person, index) =>
+                        {people.slice(1, 6).map((person, index) =>
                             <People
                                 key={index}
                                 number={index}
                                 person={person}
                             />)}
-                    <form onSubmit={this.handleSubmit}>
-                        <label htmlFor="name">Enter Name:</label><br/>
-                        <input type="text" placeholder="Your name" name="name" id="name" value={this.state.you}onChange={this.getInLine}></input>
-                        <input type="submit" value="Submit"></input>
-                    </form>
+                        {this.state.submitted ? <p></p> : <form onSubmit={this.handleSubmit}>
+                            <label htmlFor="name">Enter Name:</label><br />
+                            <input onChange={this.getInLine} type="text" placeholder="Your name" name="name" id="name"></input>
+                            <input type="submit" value="Submit"></input>
+                        </form>}
                     </div>
                 </section>
             </>
