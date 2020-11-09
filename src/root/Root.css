@@ -2,6 +2,7 @@
     padding: 0px;
     font-size: 18px;
     margin-left: 20px;
+    width: 20%;
 }
 
 .header h1{
@@ -11,4 +12,15 @@
 
 .header h1:hover{
     color:rgb(220, 227, 236)
+}
+
+@media screen and (min-width: 450px) {
+
+
+}
+
+@media screen and (max-width: 490px) {
+    .header h1:hover{
+        text-decoration: none;
+    }
 }

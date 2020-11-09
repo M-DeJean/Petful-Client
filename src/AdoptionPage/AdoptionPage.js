@@ -37,11 +37,11 @@ export default class AdoptionPage extends Component {
                 this.setState({ people: people, front: people[0] })
             })
 
-        // this.interval = setInterval(() => {
-        //     console.log(this.state.user)
-        //     if (this.state.front !== this.state.user)
-        //         this.next();
-        // }, 3000);
+        this.interval = setInterval(() => {
+            console.log(this.state.user)
+            if (this.state.front !== this.state.user)
+                this.next();
+        }, 3000);
 
     }
 
@@ -93,6 +93,7 @@ export default class AdoptionPage extends Component {
     }
 
     resetUser = () => {
+        alert('You have adopted a new pet! Thank you!')
         ApiService.deletePeople()
         const blank = ""
         this.setState({ user: blank, submitted: false })
@@ -105,8 +106,9 @@ export default class AdoptionPage extends Component {
         return (
             <>
                 <section className='AdoptionPage'>
-                    <h1>Adopt a Pet!</h1>
-                    {!cats.next ? <p>Rescuing Cats...</p> : <div className='cat'>
+                    <div className="pets">
+                    {!cats.next ? <p>Rescuing Cats...</p> :
+                    <div className='cat'>
                         <Cats
                             cats={cats}
                             adopt={this.adoptCat}
@@ -125,8 +127,9 @@ export default class AdoptionPage extends Component {
                                 front={front}
                             />
                         </div>}
+                        </div> 
                     <div className="front">
-                        <p>First in line: {front}</p>
+                        <h3>First in line: {front}</h3>
                     </div>
                     <div className='People'>
                         {people.slice(1, 6).map((person, index) =>
@@ -135,7 +138,7 @@ export default class AdoptionPage extends Component {
                                 number={index}
                                 person={person}
                             />)}
-                        {this.state.submitted ? <p></p> : <form onSubmit={this.handleSubmit}>
+                        {this.state.submitted ? <p></p> : <form className="form" onSubmit={this.handleSubmit}>
                             <label htmlFor="name">Enter Name:</label><br />
                             <input onChange={this.getInLine} type="text" placeholder="Your name" name="name" id="name"></input>
                             <input type="submit" value="Submit"></input>

@@ -1,5 +1,19 @@
 .AdoptionPage{
-    display: flex;
+    display: block;
+    text-align: center;
+}
+
+.front h3{
+    margin: auto;
+    margin-top: 10px;
+    border: 1px solid white;
+    width: 50%;
+    height: 30px;
+    padding-top: 5px;
+}
+
+.pets{
+    display:flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
@@ -8,4 +22,40 @@
 .picture{
     height:150px;
     width: 200px;
+    border: 2px solid steelblue;
+    border-radius: 10px;
 }
+
+.form{
+    color: steelblue;
+    text-align: center;
+}
+
+@media screen and (min-width: 450px) {
+
+
+}
+
+@media screen and (max-width: 490px) {
+    .picture{
+        height:100px;
+        width: 150px;
+    }
+    .AdoptionPage h1{
+        font-size: 20px;
+    }
+    .AdoptionPage h2{
+        font-size: 18px;
+    }
+    .AdoptionPage .front h3{
+        width: 60%;
+        font-size: 16px;
+        padding: 10px;
+        padding-top: 10px;
+        padding-bottom: 0px;
+    }
+    .AdoptionPage p{
+        font-size: 14px;
+    }
+}
+

@@ -20,3 +20,14 @@ a{
 a:hover{
     color:lightsteelblue
 }
+
+@media screen and (min-width: 450px) {
+
+
+}
+
+@media screen and (max-width: 490px) {
+    body{
+        text-decoration: none;
+    }
+}
