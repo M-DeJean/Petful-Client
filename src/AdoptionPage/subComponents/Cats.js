@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 
 export default class Cats extends Component {
     render() {
-        const {cats, adopt} = this.props
+        const {cats, adopt, user, front, reset} = this.props
 
         return (
             <>
                 <h2>Cat</h2>
                 <img src={cats.value.imageURL}></img>
                 <p>Name: {cats.value.name}</p>
-                <button onClick={adopt}>ADOPT</button>
+                <button disabled={user !== front} onClick={adopt, reset}>ADOPT</button>
             </>
         )
     }

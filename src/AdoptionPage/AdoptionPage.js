@@ -15,7 +15,7 @@ export default class AdoptionPage extends Component {
             next: {}
         },
         people: [],
-        value: "",
+        user: "",
         front: "",
         submitted: false
     }
@@ -37,8 +37,8 @@ export default class AdoptionPage extends Component {
             })
 
         this.interval = setInterval(() => {
-            console.log(this.state.value)
-            if (this.state.front !== this.state.value)
+            console.log(this.state.user)
+            if (this.state.front !== this.state.user)
                 this.next();
         }, 3000);
 
@@ -79,22 +79,28 @@ export default class AdoptionPage extends Component {
 
     getInLine = (e) => {
         e.preventDefault()
-        this.setState({ value: e.target.value })
-        
+        this.setState({ user: e.target.value })
+
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
-        ApiService.addPeople(this.state.value)
+        ApiService.addPeople(this.state.user)
         ApiService.getPeople()
-        this.setState({submitted: true})
-        alert(`${this.state.value} was added to the back of the line!`)
+        this.setState({ submitted: true })
+        alert(`${this.state.user} was added to the back of the line!`)
+    }
+
+    resetUser = () => {
+        ApiService.deletePeople()
+        const blank = ""
+        this.setState({ user: blank, submitted: false })
     }
 
 
 
     render() {
-        const { cats, dogs, people, value, front } = this.state
+        const { cats, dogs, people, user, front } = this.state
         return (
             <>
                 <section className='AdoptionPage'>
@@ -103,6 +109,9 @@ export default class AdoptionPage extends Component {
                         <Cats
                             cats={cats}
                             adopt={this.adoptCat}
+                            reset={this.resetUser}
+                            user={user}
+                            front={front}
                         />
                     </div>}
                     {!dogs.next ? <p>Rescuing Dogs...</p> :
@@ -110,14 +119,14 @@ export default class AdoptionPage extends Component {
                             <Dogs
                                 dogs={dogs}
                                 adopt={this.adoptDog}
-                                value={value}
+                                reset={this.resetUser}
+                                user={user}
                                 front={front}
                             />
                         </div>}
                     <div className="front">
                         <p>First in line: {front}</p>
                     </div>
-
                     <div className='People'>
                         {people.slice(1, 6).map((person, index) =>
                             <People

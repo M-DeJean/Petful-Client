@@ -31,15 +31,10 @@ const Apiservice = {
             body: JSON.stringify({ name })
         })
     },
-    updatePeople() {
+    deletePeople() {
         return fetch(`${config.API_ENDPOINT}/people`, {
-            method: 'PATCH'
+            method: 'DELETE'
         })
-            .then(res =>
-                (!res.ok)
-                    ? res.json().then(e => Promise.reject(e))
-                    : res.json()
-            )
     },
     adoptCat() {
         return fetch(`${config.API_ENDPOINT}/cats`, {
