@@ -3,6 +3,7 @@ import ApiService from './../Services/ApiService'
 import Cats from './subComponents/Cats'
 import Dogs from './subComponents/Dogs'
 import People from './subComponents/People'
+import './AdoptionPage.css'
 export default class AdoptionPage extends Component {
 
     state = {
@@ -36,11 +37,11 @@ export default class AdoptionPage extends Component {
                 this.setState({ people: people, front: people[0] })
             })
 
-        this.interval = setInterval(() => {
-            console.log(this.state.user)
-            if (this.state.front !== this.state.user)
-                this.next();
-        }, 3000);
+        // this.interval = setInterval(() => {
+        //     console.log(this.state.user)
+        //     if (this.state.front !== this.state.user)
+        //         this.next();
+        // }, 3000);
 
     }
 

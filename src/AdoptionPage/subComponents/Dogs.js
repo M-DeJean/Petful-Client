@@ -7,7 +7,7 @@ export default class Dogs extends Component {
         return (
             <>
                 <h2>Dog</h2>
-                <img src={dogs.value.imageURL}></img>
+                <img className="picture" src={dogs.value.imageURL}></img>
                 <p>Name: {dogs.value.name}</p>
                 <button disabled={user !== front}onClick={adopt, reset}>ADOPT</button>
             </>

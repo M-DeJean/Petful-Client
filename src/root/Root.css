@@ -1,0 +1,14 @@
+.header{
+    padding: 0px;
+    font-size: 18px;
+    margin-left: 20px;
+}
+
+.header h1{
+    color: white;
+    
+}
+
+.header h1:hover{
+    color:rgb(220, 227, 236)
+}
