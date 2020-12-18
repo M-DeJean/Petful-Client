@@ -36,6 +36,16 @@ const Apiservice = {
             method: 'DELETE'
         })
     },
+    userAdoptDog() {
+        return fetch(`${config.API_ENDPOINT}/people/dog`, {
+            method: 'DELETE'
+        })
+    },
+    userAdoptCat() {
+        return fetch(`${config.API_ENDPOINT}/people/cat`, {
+            method: 'DELETE'
+        })
+    },
     adoptCat() {
         return fetch(`${config.API_ENDPOINT}/cats`, {
             method: 'DELETE'

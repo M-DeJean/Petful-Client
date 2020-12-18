@@ -6,12 +6,19 @@
     border-radius: 10px;
     text-align: center;
     line-height: 30px;
-    background-color: aliceblue
+    /* background-color: aliceblue */
+    background: url(../images/dogAndCat.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .LandingPage a{
     border: 2px solid lightsteelblue;
     padding: 10px
+}
+
+.LandingPage h3, p{
+    color: white;
 }
 
 .LandingPage p{
@@ -20,8 +27,9 @@
 }
 
 @media screen and (min-width: 450px) {
-
-
+    .LandingPage{
+        height: 40%;
+    }
 }
 
 @media screen and (max-width: 490px) {

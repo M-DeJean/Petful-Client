@@ -3,6 +3,13 @@
     text-align: center;
 }
 
+.AdoptionPage h3{
+    color: steelblue
+}
+
+.AdoptionPage p{
+    color: steelblue;
+}
 .front h3{
     margin: auto;
     margin-top: 10px;
@@ -10,6 +17,7 @@
     width: 50%;
     height: 30px;
     padding-top: 5px;
+    color: yellow;
 }
 
 .pets{
