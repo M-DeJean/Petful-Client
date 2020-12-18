@@ -13,7 +13,6 @@ export default class Cats extends Component {
                 <p>Breed: {cats.value.breed}</p>
                 <p>Gender: {cats.value.gender}</p>
                 <p>Story: {cats.value.story}</p>
-
                 <button disabled={user !== front} onClick={() => { adopt(); reset(); }}>ADOPT</button>
             </>
         )
